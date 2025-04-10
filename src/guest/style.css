@@ -1,0 +1,29 @@
+
+.landing-text-top{
+    display: flex;
+    align-items: center;
+    text-align: start;
+}
+
+/* start auth */
+.auth_c{
+    width: 320px;
+    
+    border-radius: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+    background-color: #81818121;
+    margin: 20px;
+}
+.auth-item{
+    padding: 5px;
+    margin: 0px 10px;
+}
+.auth-lable{
+    display: block;
+    text-align: start;
+
+}
+.auth-background{
+background: linear-gradient(163deg, rgba(8,24,40,0.6000549145439426) 0%, rgba(77,161,169,0.5244246624431023) 79%);
+}
+/* end auth */
