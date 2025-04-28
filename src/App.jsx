@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./guest/style.css";
-
+import './manager/style.css'
 import './App.css';
 import './component/style.css'
+
 
 import NavBar from './component/navbar/header';
 import Footer from './component/footer';
@@ -13,7 +14,11 @@ import Signin from './guest/login';
 
 import AdminApp from './admin/App';
 import AdminHome from './admin/home';
+import AdminUsers from './admin/users/userLogic'
 
+import ManagerApp from './manager/App';
+import ManagerHome from './manager/home';
+import Diagnosis from './manager/newDiagnostic'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {  ConfigProvider , theme } from 'antd';
@@ -80,7 +85,14 @@ function App() {
               
               <Route path="admin" element={<AdminApp />} >
                 <Route path="" element={<AdminHome />} />
+                <Route path="users" element={<AdminUsers />} />
                 
+              </Route>
+
+              <Route path="manager" element={<ManagerApp />} >
+                <Route path="" element={<ManagerHome />} />
+                <Route path="diagnostic" element={<Diagnosis />} />
+
               </Route>
 
               

@@ -11,6 +11,11 @@
   
   float: left;
 }
+.menu__logo_test{
+  font-family: ui-sans-serif;
+  font-size: 26px;
+  text-shadow: 0 0 16px var(--main_color), 0 0 16px var(--main_color);
+}
 
 .menu__logo a {
   display: inline-block;
@@ -94,7 +99,7 @@
 .nav-link{
   color: var(--main_color);
   font-weight: bold;
-  font-size: 15px;
+  font-size: 16px;
   transition:all .4s ease-in-out;
 }
 .nav-link:hover{
@@ -140,7 +145,7 @@
 
     
     transition:all .3s ease-in-out;
-    background-color: var(--main_color);
+    background: linear-gradient(180deg,rgba(46, 80, 119, 1) 0%, rgba(61, 120, 144, 0.86) 70%, rgba(77, 161, 169, 0.54) 100%);
     color: var(--sec_color);
 
 }
@@ -148,7 +153,6 @@
 .main-btn:hover{
 
     transform: scale(1.08);
-    background-color: var(--main_color);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

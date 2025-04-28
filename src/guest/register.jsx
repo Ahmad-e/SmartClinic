@@ -106,7 +106,9 @@ const Register=()=> {
                 <div className='auth-item p-4'>
                     <AppButton onClick={()=>Send_data()} text={ t("register") }  ></AppButton>
                 </div>
-
+                <div className='auth-item p-4 text-lg'>
+                    { t("have_acc") } <a href='login'> { t("login") } </a>
+                </div>
 
 
 

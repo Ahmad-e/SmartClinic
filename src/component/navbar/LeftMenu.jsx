@@ -12,7 +12,7 @@ const LeftMenu =(props)=> {
     return (
       <Menu style={{ background:"none"  }} mode={props.mode}>
         <span className='nav-item' key="alipay">
-          <a className='nav-link ' href="/"> LOGO </a>
+          <a className='menu__logo_test' href="/"> 3Dental </a>
         </span>
         <span className='nav-item' key="mail">
           <a className='nav-link' href="/">{ t("home")}</a>

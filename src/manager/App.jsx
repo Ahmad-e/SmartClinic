@@ -1,20 +1,18 @@
 import {Outlet } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
-
+import Nav from './components/managerNav'
 
 const Home=()=>{
 
     // const language = useSelector((state) => state.language);
     // const acc = useSelector(state => state.account);
-
-
-
     return(
         <>
-        <div className=''>
+        <div className='flex'>
+            <Nav />
             
-            <div >
+            <div className=' w-full' >
                 <Outlet />
             </div>
             

@@ -22,5 +22,7 @@
     "email_error":"Invalid email",
     "password_error":"Password must be more than 8 characters",
     "create_Account":"Create a new account",
-    "Log_in_account":"Log in to your account"
+    "Log_in_account":"Log in to your account",
+    "have_acc":"If you have an account you can go to",
+    "un_have_acc":"If you do not have an account you can go to"
 }

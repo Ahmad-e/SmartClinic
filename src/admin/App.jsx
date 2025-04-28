@@ -1,7 +1,7 @@
 import {Outlet } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
-
+import AdminNav from './components/adminNav'
 
 const Home=()=>{
 
@@ -12,9 +12,9 @@ const Home=()=>{
 
     return(
         <>
-        <div className=''>
-            
-            <div >
+        <div className='flex'>
+            <AdminNav/>
+            <div className='w-full' >
                 <Outlet />
             </div>
             
