@@ -18,10 +18,12 @@ import TeethDown8 from '../../svgs/teeths/down8';
 
 import Line1 from '../../svgs/teeths/line1'
 import Line2 from '../../svgs/teeths/line2'
+import Line2Auto from '../../svgs/teeths/line2auto'
 import Background from '../../svgs/teeths/background'
 
 import { useDispatch, useSelector } from 'react-redux';
 import {modeActions} from "../../store";
+import { BorderRight } from '@mui/icons-material';
 
 const Teeth=(props)=> {
     var test = [1,2,3,4,5,6,7,8]
@@ -44,10 +46,10 @@ const Teeth=(props)=> {
 
 
     return(
-            <Col className='flex justify-start' style={{ overflow:"scroll" }} lg={8} md={7} sm={12} > 
-                <div style={{ width:"960px"  }} >
-                        <div  style={{ width:"960px"  }}>
-                            <div   style={{  marginBottom:"-30px"   }} className='py-12' >
+            <Col className='flex justify-start' style={{ overflow:"scroll" , maxHeight:'525px' }} lg={9} md={7} sm={12} > 
+                <div style={{ width:"925px"  }} >
+                        <div  style={{ width:"925px"  }}>
+                            <div   style={{  marginBottom:"-30px"   }} className='pb-12' >
                                 <div className='flex justify-between' >
                                     <div  style={{ padding: "30px 60px", marginBottom:"-40px" ,filter: "drop-shadow(0px 0px 2px #000)" , position: "relative"  , top:(40+( -1 * parseInt(sinus_1) )) }}>
                                         <Line2  />
@@ -57,22 +59,30 @@ const Teeth=(props)=> {
                                     </div>
                                 </div>
                             </div>
+                            <div   style={{  marginBottom:"-30px"   }} className='pb-12' >
+                                <div style={{  marginTop:"-195px"   }} className='flex justify-between'  >
+                                    <div  style={{ padding: "30px 60px", marginBottom:"-40px" ,filter: "drop-shadow(0px 0px 2px #000)" , position: "relative"  , top:40 }}>
+                                        <Line2Auto  />
+                                    </div>
+                                    <div style={{ padding: "30px 60px",  marginBottom:"-40px" ,filter: "drop-shadow(0px 0px 2px #000)" , position: "relative"  , top:40 }}>
+                                        <Line2Auto reverse={true} />
+                                    </div>
+                                </div>
+                            </div>
                             <div  style={{  height:"0px" }}>
                                     <Line1 style={ {
                                         position: "relative",
-                                        top: 50+lin1Height
+                                        top: 50
                                     } } />
                                 
                             </div>
 
-                            <button onClick={()=>dispatch(setSelectedTeeth(8))} className='btn_svg'>
+                            <button style={{ translate:"0px -3px" }} onClick={()=>dispatch(setSelectedTeeth(8))} className='btn_svg'>
                                     
                                 <TeethDown8 rotate={ true }/>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[8].height-24,
-                                        
-                                        BackgroundColor:"#111"
+                                        top: teethData[8].height-21,
                                     } }
                                     className={'line-hr '+( teethData[8].height !==0 ? ("bg-red-700"):("") )}
                                     />
@@ -108,12 +118,12 @@ const Teeth=(props)=> {
                                     {16}
                                 </div>
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(5))} className='btn_svg'>
+                            <button style={{ translate:"0px 4px" }} onClick={()=>dispatch(setSelectedTeeth(5))} className='btn_svg'>
                                                 
                                 <Teeth5 rotate={ true }/>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[5].height-24,
+                                        top: teethData[5].height-28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[5].height !==0 ? ("bg-red-700"):("") )}
@@ -136,12 +146,12 @@ const Teeth=(props)=> {
                                     {14}
                                 </div>
                             </button>  
-                            <button onClick={()=>dispatch(setSelectedTeeth(3))} className='btn_svg'>
+                            <button style={{ translate:"0px -2px" }}  onClick={()=>dispatch(setSelectedTeeth(3))} className='btn_svg'>
                                                 
                                 <Teeth3  rotate={ true }/>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[3].height-24,
+                                        top: teethData[3].height-22,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[3].height !==0 ? ("bg-red-700"):("") )}
@@ -151,10 +161,10 @@ const Teeth=(props)=> {
                                 </div>
                             </button>  
                             
-                            <button onClick={()=>dispatch(setSelectedTeeth(2))} className='btn_svg'>
+                            <button style={{ translate:"0px 3px" }} onClick={()=>dispatch(setSelectedTeeth(2))} className='btn_svg'>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[2].height+35,
+                                        top: teethData[2].height+30,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[2].height !==0 ? ("bg-red-700"):("") )}
@@ -164,10 +174,10 @@ const Teeth=(props)=> {
                                     {12}
                                 </div>
                             </button>
-                            <button  onClick={()=>dispatch(setSelectedTeeth(1))} className='btn_svg'>
+                            <button style={{ translate:"0px -6px" }} onClick={()=>dispatch(setSelectedTeeth(1))} className='btn_svg'>
                             <hr style={ {
                                         position: "relative",
-                                        top: teethData[1].height+35,
+                                        top: teethData[1].height+38,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[1].height !==0 ? ("bg-red-700"):("") )}
@@ -179,11 +189,11 @@ const Teeth=(props)=> {
                             </button>
                             
                             {/* ////////////// */}
-                            <span className='center-teeth-border'>
-                                <button  onClick={()=>dispatch(setSelectedTeeth(9))} className='btn_svg w-full'>
+                            <span className={ lang==="Ar" ?  ' center-teeth-border-AR' : "center-teeth-border"}>
+                                <button style={{ translate:"0px -7px" }} onClick={()=>dispatch(setSelectedTeeth(9))} className='btn_svg w-full'>
                                     <hr style={ {
                                             position: "relative",
-                                            top: teethData[9].height+34,
+                                            top: teethData[9].height+38,
                                             BackgroundColor:"#111"
                                         } }
                                         className={'line-hr '+( teethData[9].height !==0 ? ("bg-red-700"):("") )}
@@ -195,10 +205,10 @@ const Teeth=(props)=> {
                                 </button>
                             </span>
 
-                            <button onClick={()=>dispatch(setSelectedTeeth(10))} className='btn_svg'>
+                            <button style={{ translate:"0px 3px" }} onClick={()=>dispatch(setSelectedTeeth(10))} className='btn_svg'>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[10].height+35,
+                                        top: teethData[10].height+31,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[10].height !==0 ? ("bg-red-700"):("") )}
@@ -208,10 +218,10 @@ const Teeth=(props)=> {
                                     {22}
                                 </div>
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(11))} className='btn_svg'>
+                            <button style={{ translate:"0px -2px" }} onClick={()=>dispatch(setSelectedTeeth(11))} className='btn_svg'>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[11].height+35,
+                                        top: teethData[11].height+36,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[11].height !==0 ? ("bg-red-700"):("") )}
@@ -224,7 +234,7 @@ const Teeth=(props)=> {
                             <button onClick={()=>dispatch(setSelectedTeeth(12))} className='btn_svg'>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[12].height+35,
+                                        top: teethData[12].height+34,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[12].height !==0 ? ("bg-red-700"):("") )}
@@ -234,10 +244,10 @@ const Teeth=(props)=> {
                                     {24}
                                 </div>
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(13))} className='btn_svg'>
+                            <button style={{ translate:"0px 4px" }} onClick={()=>dispatch(setSelectedTeeth(13))} className='btn_svg'>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[13].height+35,
+                                        top: teethData[13].height+30,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[13].height !==0 ? ("bg-red-700"):("") )}
@@ -250,7 +260,7 @@ const Teeth=(props)=> {
                             <button onClick={()=>dispatch(setSelectedTeeth(14))} className='btn_svg'>
                             <hr style={ {
                                         position: "relative",
-                                        top: teethData[14].height+35,
+                                        top: teethData[14].height+34,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[14].height !==0 ? ("bg-red-700"):("") )}
@@ -263,7 +273,7 @@ const Teeth=(props)=> {
                             <button onClick={()=>dispatch(setSelectedTeeth(15))} className='btn_svg'>
                             <hr style={ {
                                         position: "relative",
-                                        top: teethData[15].height+35,
+                                        top: teethData[15].height+34,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[15].height !==0 ? ("bg-red-700"):("") )}
@@ -273,10 +283,10 @@ const Teeth=(props)=> {
                                     {27}
                                 </div>
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(16))} className='btn_svg'>
-                            <hr style={ {
+                            <button style={{ translate:"0px -2px" }} onClick={()=>dispatch(setSelectedTeeth(16))} className='btn_svg'>
+                                <hr style={ {
                                         position: "relative",
-                                        top: teethData[16].height+35,
+                                        top: teethData[16].height+36,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[16].height !==0 ? ("bg-red-700"):("") )}
@@ -295,31 +305,31 @@ const Teeth=(props)=> {
                             <div  style={{  height:"0px" }}>
                                     <Line1 style={ {
                                         position: "relative",
-                                        top: 90+lin2Height
+                                        top: 94
                                     } } />
                                 
                             </div>
-                            <button onClick={()=>dispatch(setSelectedTeeth(32))} className='btn_svg'>
+                            <button style={{ translate:"0px -5px" }} onClick={()=>dispatch(setSelectedTeeth(32))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {48}
                                 </div>   
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[32].height+23,
+                                        top: -teethData[32].height+28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[32].height !==0 ? ("bg-red-700"):("") )}
                                     />
-                                <TeethTop8 reverse={true}/>
+                                <TeethTop7 reverse={true}/>
                                 
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(31))} className='btn_svg'>
+                            <button  style={{ translate:"0px -5px" }} onClick={()=>dispatch(setSelectedTeeth(31))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {47}
                                 </div>  
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[31].height+23,
+                                        top: -teethData[31].height+28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[31].height !==0 ? ("bg-red-700"):("") )}
@@ -327,13 +337,13 @@ const Teeth=(props)=> {
                                 <TeethTop7 reverse={true}/>
                                 
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(30))} className='btn_svg'>
+                            <button style={{ translate:"0px -2px" }} onClick={()=>dispatch(setSelectedTeeth(30))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {46}
                                 </div>   
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[30].height+23,
+                                        top: -teethData[30].height+25,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[30].height !==0 ? ("bg-red-700"):("") )}
@@ -341,13 +351,13 @@ const Teeth=(props)=> {
                                 <TeethTop6 reverse={true}  />
                                 
                             </button>
-                            <button  onClick={()=>dispatch(setSelectedTeeth(29))} className='btn_svg'>
+                            <button  style={{ translate:"0px -5px" }} onClick={()=>dispatch(setSelectedTeeth(29))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {45}
                                 </div>     
                                     <hr style={ {
                                         position: "relative",
-                                        top: teethData[29].height+23,
+                                        top: -teethData[29].height+28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[29].height !==0 ? ("bg-red-700"):("") )}
@@ -361,7 +371,7 @@ const Teeth=(props)=> {
                                 </div>   
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[28].height+23,
+                                        top: -teethData[28].height+23,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[28].height !==0 ? ("bg-red-700"):("") )}
@@ -369,13 +379,13 @@ const Teeth=(props)=> {
                                 <Teeth4 reverse={true}/>
                                 
                             </button>  
-                            <button onClick={()=>dispatch(setSelectedTeeth(27))} className='btn_svg'>
+                            <button style={{ translate:"0px 2px" }} onClick={()=>dispatch(setSelectedTeeth(27))} className='btn_svg'>
                                 <div className='text-sm py-3'>
                                     {43}
                                 </div> 
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[27].height+23,
+                                        top: -teethData[27].height+21,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[27].height !==0 ? ("bg-red-700"):("") )}
@@ -384,13 +394,13 @@ const Teeth=(props)=> {
                                 
                             </button>  
                             
-                            <button onClick={()=>dispatch(setSelectedTeeth(26))} className='btn_svg'>
+                            <button style={{ translate:"0px -3px" }} onClick={()=>dispatch(setSelectedTeeth(26))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {42}
                                 </div>        
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[26].height+23,
+                                        top: -teethData[26].height+26,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[26].height !==0 ? ("bg-red-700"):("") )}
@@ -399,13 +409,13 @@ const Teeth=(props)=> {
                                 
                             </button>
                             
-                            <button onClick={()=>dispatch(setSelectedTeeth(25))} className='btn_svg'>
+                            <button  style={{ translate:"0px 2px" }} onClick={()=>dispatch(setSelectedTeeth(25))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {41}
                                 </div>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[25].height+23,
+                                        top: -teethData[25].height+22,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[25].height !==0 ? ("bg-red-700"):("") )}
@@ -414,14 +424,14 @@ const Teeth=(props)=> {
                                 
                             </button>
                             {/* ////////////// */}
-                            <span className='center-teeth-border'>
-                                <button  onClick={()=>dispatch(setSelectedTeeth(17))} className='btn_svg w-full'>
+                            <span className={ lang==="Ar" ?  ' center-teeth-border-AR' : "center-teeth-border"}>
+                                <button style={{ translate:"0px 2px" }} onClick={()=>dispatch(setSelectedTeeth(17))} className='btn_svg w-full'>
                                     <div className='text-sm py-3'>
                                         {31}
                                     </div>     
                                     <hr style={ {
                                         position: "relative",
-                                        top: teethData[17].height+23,
+                                        top: -teethData[17].height+21,
                                         BackgroundColor:"#111"
                                         } }
                                         className={'line-hr '+( teethData[17].height !==0 ? ("bg-red-700"):("") )}
@@ -430,13 +440,13 @@ const Teeth=(props)=> {
                                     
                                 </button>
                             </span>
-                            <button onClick={()=>dispatch(setSelectedTeeth(18))} className='btn_svg'>
+                            <button style={{ translate:"0px -3px" }} onClick={()=>dispatch(setSelectedTeeth(18))} className='btn_svg'>
                             <div className='text-sm py-3'>
                                     {32}
                                 </div>    
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[18].height+23,
+                                        top: -teethData[18].height+26,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[18].height !==0 ? ("bg-red-700"):("") )}
@@ -445,13 +455,13 @@ const Teeth=(props)=> {
                                 
                             </button>
                             
-                            <button onClick={()=>dispatch(setSelectedTeeth(19))} className='btn_svg'>
+                            <button style={{ translate:"0px 2px" }} onClick={()=>dispatch(setSelectedTeeth(19))} className='btn_svg'>
                                 <div className='text-sm py-3'>
                                     {33}
                                 </div>       
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[19].height+23,
+                                        top: -teethData[19].height+21,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[19].height !==0 ? ("bg-red-700"):("") )}
@@ -465,7 +475,7 @@ const Teeth=(props)=> {
                                 </div>       
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[20].height+23,
+                                        top: -teethData[20].height+23,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[20].height !==0 ? ("bg-red-700"):("") )}
@@ -473,13 +483,13 @@ const Teeth=(props)=> {
                                 <Teeth4/>
                                 
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(21))} className='btn_svg'>
+                            <button style={{ translate:"0px -5px" }} onClick={()=>dispatch(setSelectedTeeth(21))} className='btn_svg'>
                                 <div className='text-sm py-3'>
                                     {35}
                                 </div>   
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[21].height+23,
+                                        top: -teethData[21].height+28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[21].height !==0 ? ("bg-red-700"):("") )}
@@ -487,13 +497,13 @@ const Teeth=(props)=> {
                                 <Teeth5/>
                                 
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(22))} className='btn_svg'>
+                            <button  style={{ translate:"0px -2px" }} onClick={()=>dispatch(setSelectedTeeth(22))} className='btn_svg'>
                                 <div className='text-sm py-3'>
                                     {36}
                                 </div>   
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[22].height+23,
+                                        top: -teethData[22].height+25,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[22].height !==0 ? ("bg-red-700"):("") )}
@@ -501,13 +511,13 @@ const Teeth=(props)=> {
                                 <TeethTop6 />
                                 
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(23))} className='btn_svg'>
+                            <button  style={{ translate:"0px -5px" }} onClick={()=>dispatch(setSelectedTeeth(23))} className='btn_svg'>
                                 <div className='text-sm py-3'>
                                     {37}
                                 </div>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[23].height+23,
+                                        top: -teethData[23].height+28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[23].height !==0 ? ("bg-red-700"):("") )}
@@ -515,18 +525,18 @@ const Teeth=(props)=> {
                                 <TeethTop7 />
                                 
                             </button>
-                            <button onClick={()=>dispatch(setSelectedTeeth(24))} className='btn_svg'>
+                            <button  style={{ translate:"0px -5px" }} onClick={()=>dispatch(setSelectedTeeth(24))} className='btn_svg'>
                                 <div className='text-sm py-3'>
                                     {38}
                                 </div>
                                 <hr style={ {
                                         position: "relative",
-                                        top: teethData[24].height+23,
+                                        top: -teethData[24].height+28,
                                         BackgroundColor:"#111"
                                     } }
                                     className={'line-hr '+( teethData[24].height !==0 ? ("bg-red-700"):("") )}
                                     />  
-                                <TeethTop8 />
+                                <TeethTop7 />
                                 
                             </button>
 

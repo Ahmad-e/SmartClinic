@@ -60,7 +60,7 @@ const Diagnostic=()=> {
 
                 <TeethDashbord />
 
-                <Col lg={4} md={5} sm={12} >
+                <Col lg={3} md={5} sm={12} >
                     <Row className='p-4' >
                         <Col lg={12}  xs={12}>
                             <p className='mt-1 text-start'>
@@ -74,7 +74,7 @@ const Diagnostic=()=> {
                             </p>
                             <Slider max={40} min={-40} value={sinus_2} onChange={(e)=>dispatch(setSinus_2(e))} />
                         </Col>
-                        <Col lg={12}  xs={12}>
+                        {/* <Col lg={12}  xs={12}>
                             <p className='mt-1 text-start'>
                                  line 1
                             </p>
@@ -85,12 +85,12 @@ const Diagnostic=()=> {
                                 line 2
                             </p>
                             <Slider max={30} min={-30} value={lin2Height} onChange={(e)=>dispatch(setLine2Height(e))} />
-                        </Col>
+                        </Col> */}
                         <Col lg={12}  xs={12}>
                             <p className='mt-1 text-start'>
                                 height selected teeth
                             </p>
-                            <Slider disabled={selectedTeeth===0} value={test_}  onChange={(e)=>dispatch(setTeethHeight(e))} max={30} min={-30}   />
+                            <Slider disabled={selectedTeeth===0} value={test_}  onChange={(e)=>dispatch(setTeethHeight(e))} max={0} min={-30}   />
                         </Col>
                         <Col lg={12}  xs={12}> 
                             <Dropdown menu={{

@@ -1,25 +1,33 @@
-import { Flex, Input } from 'antd';
+import { Alert, Input } from 'antd';
 import AppButton from '../component/button'
 import { useDispatch, useSelector } from 'react-redux';
 import {modeActions} from "../store";
 import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 
+import Loading from '../component/loading'
+import axios from "axios";
 
 const Register=()=> {
-    const {setLanguage,toggleMode,logout} = modeActions;
+    const {setUserId,setAccount,setToken} = modeActions;
     const mode = useSelector((state) => state.mode);
+    const url = useSelector((state) => state.apiURL);
+
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
+    const [loading, setLoading] = React.useState(false);
+
+
     const [name, setName] = React.useState('');
+
     const [password, setPassword] = React.useState('');
     const [email, setEmail] = React.useState('');
 
     const [errName, setErrName] = React.useState(false);
     const [errPassword, setErrPassword] = React.useState(false);
     const [errEmail, setErrEmail] = React.useState(false);
-    const [errServer, setErrSever] = React.useState('')
+    const [errServer, setErrSever] = React.useState(false)
 
     
     const changeName=(e)=>{
@@ -69,7 +77,44 @@ const Register=()=> {
                 return;
             }
             console.log("ok")
-
+            setLoading(true)
+            try {
+                const response = axios.post(url+'auth/register/', {
+                    fullname:name,
+                    email:email,
+                    password:password,
+                    password2:password,
+                    clinc:"c_n",
+                    role:"administrator"
+                },
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Accept':"application/json"
+                    }
+                }).then((response) => {
+                    setLoading(false)
+                    if(response.data.code===200){     
+                        console.log(response.data);
+                        dispatch(setAccount(response.data.data.role))
+                        dispatch(setToken(response.data.data.token.token))
+                        dispatch(setUserId(response.data.data.uid))
+                    }
+                    else{
+                    console.log("response.data");
+                    setErrSever(response.data.message)
+                        
+                    }
+        
+                }).catch((error) => {
+                    console.log(error)
+                    setErrSever(true)
+                    setLoading(false)
+                });
+                
+            } catch (e) {
+                  throw e;
+            }
 
                 
         }
@@ -80,6 +125,7 @@ const Register=()=> {
 
     return(
         <div className="flex justify-center">
+            <Loading loading={loading} />
             <div className="auth_c ">
                 <div className="text-3xl p-3 main_color">
                 { t("create_Account") }
@@ -102,10 +148,14 @@ const Register=()=> {
                     <label hidden={!errPassword} className='auth-lable text-red-700 font-bold text-sm'> { t("password_error") } </label>
                 </div>
 
-
+                <div className={'auth-item p-4 ' + (!errServer ? "hidden" : '')}>
+                <Alert  message={t("s_email_error")} type="error" showIcon closable />
+                </div>
                 <div className='auth-item p-4'>
                     <AppButton onClick={()=>Send_data()} text={ t("register") }  ></AppButton>
                 </div>
+                
+                
                 <div className='auth-item p-4 text-lg'>
                     { t("have_acc") } <a href='login'> { t("login") } </a>
                 </div>

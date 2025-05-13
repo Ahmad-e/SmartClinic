@@ -4,6 +4,8 @@
     min-height: 90px;
     transition:all .5s ease-in-out;
     filter: drop-shadow(0px 0px 2px #000);
+    transform: scale(1.1);
+    
 }
 .btn_svg:hover{
     transform: scale(1.3);
@@ -25,16 +27,30 @@
 }
 .line-hr{
     filter: drop-shadow(0px 0px 2px #000);
-    height: 5px;
+    height: 4px;
+    width: 90%;
     background-color: #aaa;
     opacity: .7;
-
+    /* display: none; */
+    
+}
+.line-standerd-hr{
+    filter: drop-shadow(0px 0px 2px #484848);
+    height: 5px;
+    opacity: .7;
+    
 }
 
 .div_border{
     border: solid #89898975 1px;
 }
 .center-teeth-border{
+    border-left: solid #89898975 2px;
+    display: inline-block;
+    width: 6.2%;
+    height: 100%;
+}
+.center-teeth-border-AR{
     border-right: solid #89898975 2px;
     display: inline-block;
     width: 6.2%;
@@ -122,3 +138,21 @@
 }
 
 /* profille end */
+
+
+.xray-img{
+    height: 300px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+}
+
+.ant-radio-group-solid :where(.css-dev-only-do-not-override-spi69h).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    background-color: var(--main_color);
+    border-color: var(--main_color);
+}
+.ant-radio-group-solid :where(.css-dev-only-do-not-override-spi69h).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover{
+    background-color: var(--main_color2);
+    border-color: var(--main_color2);
+}

@@ -37,7 +37,7 @@ const LandingPage=()=> {
                                 </div>
                             </Col>
                             <Col lg={3} md={3} sm={6} xs={12} >
-                                <div className="profile_item">
+                                <div onClick={()=>window.location.href="manager/patients"} className="profile_item">
                                     <div>
                                         <UsergroupAddOutlined className='text-4xl py-3' />
                                     </div>
@@ -100,7 +100,7 @@ const LandingPage=()=> {
                             </Col>
                             <Col lg={4} sm={6} xs={12} >
                                 <Tooltip placement="top" title="test text as description" >
-                                    <div className="profile_item2">
+                                    <div onClick={()=>window.location.href="manager/Doctors"} className="profile_item2">
                                         <UserSwitchOutlined className='px-1 text-4xl' />
                                         <span>
                                             users

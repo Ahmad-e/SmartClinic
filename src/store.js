@@ -40,13 +40,13 @@ const arr=[
 const modeSlice = createSlice({
     name: "mode",
     initialState: {
-        mode: (Cookies.get("color_mode") ? (Cookies.get("color_mode")) : "light" ),
+        mode: (Cookies.get("color_mode-teeth") ? (Cookies.get("color_mode-teeth")) : "light" ),
         language: (Cookies.get("lang_mode") ? (Cookies.get("lang_mode")) :"En" ),
-        token: Cookies.get("token_drop"),
-        account: Cookies.get("acc_num_drop"),
-        id: Cookies.get("iD_drop"),
+        token: Cookies.get("token_teeth"),
+        account: Cookies.get("acc_num_teeth"),
+        id: Cookies.get("iD_teeth"),
         basket: Cookies.get('basket_drop') ? (JSON.parse(Cookies.get('basket_drop'))) : ([]),
-        apiURL:"https://api.familydroop.com/api/",
+        apiURL:"http://13.60.167.157/",
 
         //////////////////
 
@@ -63,12 +63,12 @@ const modeSlice = createSlice({
         toggleMode : (state)=>{
             if(state.mode==="light")
             {
-                Cookies.set("color_mode","dark",{expires: 70})
+                Cookies.set("color_mode-teeth","dark",{expires: 70})
                 state.mode = "dark";
             }
             else
             {
-                Cookies.set("color_mode","light",{expires: 70})
+                Cookies.set("color_mode-teeth","light",{expires: 70})
                 state.mode = "light";
             }
         },
@@ -77,34 +77,35 @@ const modeSlice = createSlice({
             state.language = value.payload;
         },
         setAccount : (state,value)=>{
-            Cookies.set("acc_num_drop",value.payload,{expires: 70})
+            Cookies.set("acc_num_teeth",value.payload,{expires: 70})
             state.account = value.payload;
 
-            if(value.payload===1)
-                window.location.href = '/admin';
-            else if(value.payload===2)
-                window.location.href = '/employee';
-            if(value.payload===3)
-                window.location.href = '/merchant';
-            else if(value.payload===4)
-                window.location.href = '/marketer';
+            if(value.payload==="administrator")
+                window.location.href = '/manager';
+            
+            // else if(value.payload===2)
+            //     window.location.href = '/employee';
+            // if(value.payload===3)
+            //     window.location.href = '/merchant';
+            // else if(value.payload===4)
+            //     window.location.href = '/marketer';
         },
         setUserId : (state,value)=>{
-            Cookies.set("iD_drop",value.payload,{expires: 70})
+            Cookies.set("iD_teeth",value.payload,{expires: 70})
             state.id = value.payload;
         },
         setToken : (state,value)=>{
-            Cookies.set("token_drop",value.payload,{expires: 70})
+            Cookies.set("token_teeth",value.payload,{expires: 70})
             state.token = value.payload;
         },
         logout : (state)=>{
-            Cookies.set("token_drop", undefined ,{expires: 70})
+            Cookies.set("token_teeth", undefined ,{expires: 70})
             state.token = undefined
 
-            Cookies.set("iD_drop",undefined,{expires: 70})
+            Cookies.set("iD_teeth",undefined,{expires: 70})
             state.id = undefined;
 
-            Cookies.set("acc_num_drop",undefined,{expires: 70})
+            Cookies.set("acc_num_teeth",undefined,{expires: 70})
             state.account = undefined;
 
             window.location.href="/"

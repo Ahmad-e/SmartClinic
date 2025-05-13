@@ -1,16 +1,20 @@
-import { Flex, Input } from 'antd';
+import { Alert, Input } from 'antd';
 import AppButton from '../component/button'
 import { useDispatch, useSelector } from 'react-redux';
 import {modeActions} from "../store";
 import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 
+import Loading from '../component/loading'
+import axios from "axios";
 
 const Login=()=> {
-    const {setLanguage,toggleMode,logout} = modeActions;
+    const {setUserId,setAccount,setToken} = modeActions;
     const mode = useSelector((state) => state.mode);
+    const url = useSelector((state) => state.apiURL);
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const [loading, setLoading] = React.useState(false);
 
 
     const [password, setPassword] = React.useState('');
@@ -58,6 +62,39 @@ const Login=()=> {
                 return;
             }
             console.log("ok")
+            setLoading(true)
+            try {
+                const response = axios.post(url+'auth/login/', {
+                    email:email,
+                    password:password,
+                },
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Accept':"application/json"
+                    }
+                }).then((response) => {
+                    setLoading(false)
+                    if(response.data.code===200){     
+                        console.log(response.data);
+                        dispatch(setAccount(response.data.data.Role))
+                        dispatch(setToken(response.data.data.token.token))
+                        dispatch(setUserId(response.data.data.userId))
+                    }
+                    else{
+                    console.log("response.data");
+                    setErrSever(response.data.message)
+                    }
+        
+                }).catch((error) => {
+                    console.log(error)
+                    setErrSever(true)
+                    setLoading(false)
+                });
+                
+            } catch (e) {
+                  throw e;
+            }
 
 
                 
@@ -69,6 +106,7 @@ const Login=()=> {
 
     return(
         <div className="flex justify-center">
+            <Loading loading={loading} />
             <div className="auth_c ">
                 <div className="text-2xl p-4 main_color">
                 { t("Log_in_account") }
@@ -87,6 +125,9 @@ const Login=()=> {
                     <label hidden={!errPassword} className='auth-lable text-red-700 font-bold text-sm'> { t("password_error") } </label>
                 </div>
 
+                <div className={'auth-item p-4 ' + (!errServer ? "hidden" : '')}>
+                    <Alert  message={t("login_error")} type="error" showIcon closable />
+                </div>
 
                 <div className='auth-item p-4'>
                     <AppButton onClick={()=>Send_data()} text={ t("register") }  ></AppButton>

@@ -18,7 +18,9 @@ import AdminUsers from './admin/users/userLogic'
 
 import ManagerApp from './manager/App';
 import ManagerHome from './manager/home';
-import Diagnosis from './manager/newDiagnostic'
+import Diagnosis from './manager/newDiagnostic';
+import Patients from './manager/patients/logic';
+import Doctors from './manager/doctors/logic';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {  ConfigProvider , theme } from 'antd';
@@ -69,7 +71,7 @@ function App() {
     <ThemeProvider theme={ mode==="dark" ? darkTheme : lightTheme}>
       <ConfigProvider
         theme={{
-          algorithm: mode==="dark" ? theme.darkAlgorithm : theme.compactAlgorithm
+          algorithm: mode==="dark" ? theme.darkAlgorithm : theme.defaultAlgorithm
         }}
       >
       <div dir={language==="Ar" ? ("rtl") :("ltr") }  className={"text-lg App "+mode+"  "+language }>
@@ -92,6 +94,8 @@ function App() {
               <Route path="manager" element={<ManagerApp />} >
                 <Route path="" element={<ManagerHome />} />
                 <Route path="diagnostic" element={<Diagnosis />} />
+                <Route path="patients" element={<Patients />} />
+                <Route path="doctors" element={<Doctors />} />
 
               </Route>
 

@@ -56,7 +56,7 @@ const LeftMenu =(props)=> {
     return (
       <Menu style={{ background:"none"}} mode={props.mode}>
        <span className='nav-item' key="alipay">
-          <a className='nav-link' href="#"> { t("login") }</a>
+          <a className='nav-link' href='login'> { t("login") }</a>
         </span>
         <span className='nav-item' key="alipay">
           <AppButton style={{ padding:"0px 10px" }} href="register" text={ t("register") } ></AppButton>

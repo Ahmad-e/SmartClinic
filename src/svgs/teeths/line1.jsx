@@ -4,7 +4,7 @@ const Svg=(props)=> {
     const mode = useSelector((state) => state.mode);
     return(
         <>
-             <hr  style={props.style} className='line-hr' /> 
+             <hr  style={props.style} className='line-standerd-hr' /> 
         </>
     )
 }
