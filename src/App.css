@@ -66,6 +66,17 @@ input[type="file"] {
   display: none;
 }
 
+:where(.css-dev-only-do-not-override-1d4w9r2).ant-select-single.ant-select-show-arrow .ant-select-selection-item, :where(.css-dev-only-do-not-override-1d4w9r2).ant-select-single.ant-select-show-arrow .ant-select-selection-search, :where(.css-dev-only-do-not-override-1d4w9r2).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder{
+  color: var(--main_color)
+}
+
+:where(.css-dev-only-do-not-override-spi69h).ant-select-single.ant-select-show-arrow .ant-select-selection-item, :where(.css-dev-only-do-not-override-spi69h).ant-select-single.ant-select-show-arrow .ant-select-selection-search, :where(.css-dev-only-do-not-override-spi69h).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+  color: var(--sec_color)
+}
+:where(.css-dev-only-do-not-override-spi69h).ant-select-single.ant-select-show-arrow .ant-select-selection-item, :where(.css-dev-only-do-not-override-spi69h).ant-select-single.ant-select-show-arrow .ant-select-selection-search, :where(.css-dev-only-do-not-override-spi69h).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder :hover{
+  color: var(--main_color)
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

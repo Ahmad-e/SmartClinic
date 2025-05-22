@@ -12,7 +12,7 @@ function JustifiedExample( props ) {
     const mode = useSelector((state) => state.mode);
     const { t } = useTranslation();
     return (
-        <Nav bg={mode} data-bs-theme={mode} justify variant="tabs" defaultActiveKey="/home" onSelect={(e)=>props.onChange(e)}>
+        <Nav bg={mode} data-bs-theme={mode} justify variant="tabs" defaultActiveKey={1} onSelect={(e)=>props.onChange(e)}>
         <Nav.Item style={{ padding:"0px" }}>
             <Nav.Link  eventKey={1}>{t("diagnostic")} <ReconciliationOutlined style={ iconStyle}  /></Nav.Link>
         </Nav.Item>

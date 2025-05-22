@@ -3,11 +3,15 @@ import * as React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+
 import { 
     FileAddOutlined,
     UsergroupAddOutlined,
     SolutionOutlined ,
-    NotificationOutlined 
+    PhoneOutlined 
+    ,ReconciliationOutlined
+    ,LogoutOutlined
     , FilePdfOutlined  
     ,FileSearchOutlined
     ,BulbOutlined
@@ -16,12 +20,35 @@ import {
     ,DeploymentUnitOutlined
 } from '@ant-design/icons';
 
-import { Button, Divider, Space, Tooltip } from 'antd';
+import ResetPassword from './components/resetPassword'
+// import { Button, Modal } from 'antd';
+import { Tooltip , Modal } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import {modeActions} from "../store";
 
 const LandingPage=()=> {
-    
+    const { t } = useTranslation();
+    const { logout } = modeActions;
+    const dispatch = useDispatch();
 
-    var TooltipColor=""
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const handleOk = () => {
+      setIsModalOpen(false);
+      dispatch(logout());
+    };
+  
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+
+
+    
     return(
         <Container>
             <Row className='justify-center'>
@@ -33,7 +60,7 @@ const LandingPage=()=> {
                                     <div>
                                         <FileAddOutlined className='text-4xl py-3' />
                                     </div>
-                                    new Diagnostis
+                                    {t("new_Diagnostis")}
                                 </div>
                             </Col>
                             <Col lg={3} md={3} sm={6} xs={12} >
@@ -41,24 +68,24 @@ const LandingPage=()=> {
                                     <div>
                                         <UsergroupAddOutlined className='text-4xl py-3' />
                                     </div>
-                                    All patients
+                                    {t("All_patients")}
                                 </div>
                             </Col>
                             <Col lg={3} md={3} sm={6} xs={12} >
-                                <div className="profile_item">
+                                <div onClick={()=>window.location.href="manager/clinics"} className="profile_item">
                                     <div>
                                         <SolutionOutlined className='text-4xl py-3' />
                                     </div>
-                                    your clinic fees
+                                    {t("your_clinic")}
                                 </div>
                             </Col>
                             <Col lg={3} md={3} sm={6} xs={12} >
-                                <div className="profile_item">
+                                <div onClick={()=>window.location.href="manager/Doctors"} className="profile_item">
                                     <div>
-                                    <NotificationOutlined  className='text-4xl py-3' />
+                                    <UserSwitchOutlined className='text-4xl py-3' />
                                     </div>
                                     
-                                    Live center
+                                    {t("Doctors")}
                                 </div>
                                 
                             </Col>
@@ -66,10 +93,10 @@ const LandingPage=()=> {
                         <Row className='justify-center pt-3'>
                             <Col lg={4} sm={6} xs={12} >
                                 <Tooltip placement="top" title="test text as description" >
-                                    <div className="profile_item2">
+                                    <div onClick={()=>window.location.href="manager/pdfSetting"} className="profile_item2">
                                         <FilePdfOutlined className='px-1 text-4xl' />
                                         <span>
-                                            PDF Setting
+                                            {t("PDF_Setting")}
                                         </span>
                                         
                                     </div>
@@ -81,7 +108,7 @@ const LandingPage=()=> {
                                     
                                         <FileSearchOutlined className='px-1 text-4xl' />
                                         <span>
-                                            docs
+                                            {t("Diagnostis")}
                                         </span>
                                         
                                     </div>
@@ -100,10 +127,10 @@ const LandingPage=()=> {
                             </Col>
                             <Col lg={4} sm={6} xs={12} >
                                 <Tooltip placement="top" title="test text as description" >
-                                    <div onClick={()=>window.location.href="manager/Doctors"} className="profile_item2">
-                                        <UserSwitchOutlined className='px-1 text-4xl' />
+                                    <div onClick={()=>window.location.href="manager/visites/0"} className="profile_item2">
+                                        <ReconciliationOutlined className='px-1 text-4xl' />
                                         <span>
-                                            users
+                                           {t("visites")}
                                         </span>
                                         
                                     </div>
@@ -125,7 +152,7 @@ const LandingPage=()=> {
                                     <div className="profile_item2">
                                         <ExportOutlined className='px-1 text-4xl' />
                                         <span>
-                                            supscription
+                                            {t("supscription")}
                                         </span>
                                         
                                     </div>
@@ -136,11 +163,34 @@ const LandingPage=()=> {
                 </Col>
                 <Col lg={4} md={5} sm={6} xs={12}>
                     <div className='profile_container'>
-                        data
+                        <ResetPassword />
+                        <div onClick={()=>window.location.href="manager/support"} className="profile_item3">
+                            <span>
+                                {t("suppurt")}
+                            </span>
+                            <PhoneOutlined className='px-1 text-3xl' />
+                        </div>
+                        <div onClick={showModal} className="profile_item3">
+                            <span>
+                                {t("log_out")}
+                            </span>
+                            <LogoutOutlined className='px-1 text-3xl' />
+
+                        </div>
+                        
                     </div>
                     
                 </Col>
             </Row>
+            <Modal
+                title={t("log_out")}
+                closable={{ 'aria-label': 'Custom Close Button' }}
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                {t("loguot_message")}
+            </Modal>
         </Container>
     )
 }

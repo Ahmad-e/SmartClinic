@@ -68,10 +68,19 @@
     display: flex;
     justify-content: space-between;
     box-shadow: 0 0 5px var(--main_color);
-    padding: 7px;
+
     margin: 7px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: medium;
+}
+.item_in_bord{
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid transparent;
+    padding: 0px 9px;
+    margin: 3px;
+    display: inline-block;
+    box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.2), 0 5px 9px 0 rgb(0 0 0 / 23%);
 }
 .btn-nav-bar{
     color: var(--sec_color);
@@ -87,10 +96,12 @@
     margin: 10px;
 }
 .row-list{
-    display: flex;
+    display: flex
+;
     padding: 5px;
-    justify-content: space-between;
     border-bottom: #00000081 solid 1px;
+    justify-content: space-between;
+    align-items: center;
 }
 .clear-button{
     border-radius: 50%;
@@ -99,6 +110,7 @@
 .clear-button:hover{
     background-color: rgba(255, 255, 255, 0.25);
     transition:all .3s ease-in-out;
+    
 }
 /* profile start */
 
@@ -132,9 +144,20 @@
     display: flex;
 }
 .profile_item2:hover{
-    transform: scale(1.08);
+    transform: scale(1.05);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     color: #3d6797;
+}
+.profile_item3{
+    border-bottom: solid 2px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    transition:all .4s ease-in-out;
+}
+.profile_item3:hover{
+    color: var(--main_color);
+    transform: translateX(5px);
 }
 
 /* profille end */
@@ -155,4 +178,34 @@
 .ant-radio-group-solid :where(.css-dev-only-do-not-override-spi69h).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover{
     background-color: var(--main_color2);
     border-color: var(--main_color2);
+}
+
+.dialog_center{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.test_pdf{
+    width: 320px;
+    height: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 7px;
+    padding: 15px 25px;
+    text-align: left;
+    
+}
+.pdf_logo{
+    position: relative;
+    height: 35px;
+    width: 35px;
+    
+    margin-bottom: -35px;
+    right: -250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
 }

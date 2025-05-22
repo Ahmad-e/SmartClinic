@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Button } from 'antd';
-import {  EditOutlined , ReconciliationOutlined } from '@ant-design/icons';
+import {  EditOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
 
@@ -65,15 +65,6 @@ const App = (props) => {
       },
     },
     {
-      title: t('visites'),
-      key: 'action',
-      render: (text, record) => (
-        <Button href={'visites/'+record.id}  color="primary" variant="text"  icon={<ReconciliationOutlined  style={{ fontSize: '20px'  }}  />} shape="circle" >
-
-        </Button>
-      ),
-    },
-    {
       title: t('Action'),
       key: 'action',
       render: (text, record) => (
@@ -81,7 +72,7 @@ const App = (props) => {
           
         </Button>
       ),
-    }
+    },
   ];
   
   const onChange = (pagination, filters, sorter, extra) => {

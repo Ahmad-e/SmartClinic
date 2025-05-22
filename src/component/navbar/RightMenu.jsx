@@ -48,14 +48,14 @@ const LeftMenu =(props)=> {
   ];
 
   const mode = useSelector((state) => state.mode);
-  // var account=useSelector((state) => state.account);
+  var account=useSelector((state) => state.account);
 
   const {setLanguage,toggleMode,logout} = modeActions;
   const dispatch = useDispatch();
   const { t , i18n } = useTranslation();
     return (
       <Menu style={{ background:"none"}} mode={props.mode}>
-       <span className='nav-item' key="alipay">
+        <span className='nav-item' key="alipay">
           <a className='nav-link' href='login'> { t("login") }</a>
         </span>
         <span className='nav-item' key="alipay">

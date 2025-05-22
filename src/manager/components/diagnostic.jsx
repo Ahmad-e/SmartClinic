@@ -4,42 +4,45 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import { DownOutlined, UserOutlined,ClearOutlined } from '@ant-design/icons';
-import {  Dropdown, message, Space} from 'antd';
+import {  Dropdown, Select, Space} from 'antd';
 import { Slider, Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {modeActions} from "../../store";
+import axios from "axios";
+import Loading from "../../component/loading";
 
-import TeethDashbord from './teethDashbord'
+import TeethDashbord from './teethDashbord';
 
-  const handleMenuClick = e => {
-    console.log('click', e);
-  };
-  const items = [
-    {
-      label: '1st menu item',
-      key: '1',
-      icon: <UserOutlined />,
-    },
-    {
-      label: '2nd menu item',
-      key: '2',
-      icon: <UserOutlined />,
-    },
-    {
-      label: '3rd menu item',
-      key: '3',
-      icon: <UserOutlined />
-    },
-    {
-      label: '4rd menu item',
-      key: '4',
-      icon: <UserOutlined />
-    },
-  ];
 
 const Diagnostic=()=> {
 
     var test =[1,2,3,4,5,6,7,8]
+    const url = useSelector(state => state.apiURL);
+    const token = useSelector(state => state.token);
+    const [loading, setLoading] = React.useState(false);
+
+    const [data, setData] = React.useState([]);
+    React.useEffect(() => {
+      setLoading(true);
+      axios.get( url + "api/diagnosis_cats/",
+          {
+          headers:{
+              'Content-Type': 'application/json',
+              'Authorization' : 'Bearer ' +token ,
+              'Accept':"application/json"
+          }
+          })
+          .then((response) => {
+              console.log(response.data)
+              setData(response.data.data)
+              setLoading(false)
+
+          })
+          .catch((error) =>{ 
+              console.log(error);
+              setLoading(false) });
+  }, []);
+
 
     const lin0Height = useSelector((state) => state.lin0Height);
     const lin1Height = useSelector((state) => state.lin1Height);
@@ -51,11 +54,116 @@ const Diagnostic=()=> {
     const sinus_2 = useSelector((state) => state.sinus_2);
 
     var test_ = teethData[selectedTeeth].height
-    const {setLine0Height,setSinus_1,setSinus_2,setLine1Height,setLine2Height,setTeethHeight} = modeActions;
+    const {setLine0Height,setSinus_1,setSinus_2,setLine1Height,setLine2Height,setTeethHeight ,setDiagnosis,setSelectedTeeth} = modeActions;
     const dispatch = useDispatch();
+
+    const [diagnostics, setDiagnostics] = React.useState( [
+        { cat_id: 1, ids_arr: [] },
+        { cat_id: 2, ids_arr: [] },
+        { cat_id: 3, ids_arr: [] },
+        { cat_id: 4, ids_arr: [] },
+        { cat_id: 5, ids_arr: [] },
+        { cat_id: 6, ids_arr: [] },
+        { cat_id: 7, ids_arr: [] },
+        { cat_id: 8, ids_arr: [] }
+      ]);
+    const diagnosticsRef = React.useRef([]);
+  
+    // تحديث المرجع عند كل تغيير في الحالة
+    React.useEffect(() => {
+      diagnosticsRef.current = diagnostics;
+    }, [diagnostics]);
+  
+    const updateDiagnostics = (newItem) => {
+      const current = [...diagnosticsRef.current]; // نستخدم النسخة الحية
+  
+      const existingIndex = current.findIndex(
+        (item) => item.cat_id === newItem.cat_id
+      );
+  
+      if (existingIndex !== -1) {
+        current[existingIndex] = {
+          ...current[existingIndex],
+          ids_arr: newItem.ids_arr,
+        };
+      } else {
+        current.push(newItem);
+      }
+  
+      // تحديث state والمرجع
+      setDiagnostics(current);
+      diagnosticsRef.current = current;
+    };
+
+    // const [diagnostics, setDiagnostics] =  React.useState([]);
+
+    // const updateDiagnostics = (newItem) => {
+    //     setDiagnostics((prevDiagnostics) => {
+    //       const existingIndex = prevDiagnostics.findIndex(
+    //         (item) => item.cat_id === newItem.cat_id
+    //       );
+      
+    //       if (existingIndex !== -1) {
+    //         // إذا كان cat_id موجود: نحدث ids_arr
+    //         const updated = [...prevDiagnostics];
+    //         updated[existingIndex] = {
+    //           ...updated[existingIndex],
+    //           ids_arr: newItem.ids_arr,
+    //         };
+    //         return updated;
+    //       } else {
+    //         // إذا لم يكن موجود: نضيف العنصر
+    //         return [...prevDiagnostics, newItem];
+    //       }
+    //     });
+    //   };
+
+
+    const handleChange = (value,cat_id) => {
+        updateDiagnostics({ 
+            cat_id: cat_id,
+             ids_arr: value
+        });
+        console.log({ 
+            cat_id: cat_id,
+            ids_arr: value
+        });
+      };
+
+      
+    const [refreshDiagnosticsArr, setRefreshDiagnosticsArr] =  React.useState(true);
+    React.useEffect(() => {
+        if(refreshDiagnosticsArr)
+            dispatch(setDiagnosis(diagnostics));
+        else
+            setRefreshDiagnosticsArr(true)
+      }, [diagnostics]);
+
+    React.useEffect(() => {
+        setRefreshDiagnosticsArr(false)
+        setDiagnostics( [
+            { cat_id: 1, ids_arr: [] },
+            { cat_id: 2, ids_arr: [] },
+            { cat_id: 3, ids_arr: [] },
+            { cat_id: 4, ids_arr: [] },
+            { cat_id: 5, ids_arr: [] },
+            { cat_id: 6, ids_arr: [] },
+            { cat_id: 7, ids_arr: [] },
+            { cat_id: 8, ids_arr: [] }
+          ]);
+      }, [selectedTeeth]);
+
+    function convertArray(inputArray) {
+        return inputArray.map(item => ({
+            value: item.id + " " + item.name ,
+            label: item.name
+        }));
+    }
+    
 
     return(
         <Container>
+            <Loading loading={loading} />
             <Row className='justify-center pt-3'>
 
                 <TeethDashbord />
@@ -74,173 +182,80 @@ const Diagnostic=()=> {
                             </p>
                             <Slider max={40} min={-40} value={sinus_2} onChange={(e)=>dispatch(setSinus_2(e))} />
                         </Col>
-                        {/* <Col lg={12}  xs={12}>
-                            <p className='mt-1 text-start'>
-                                 line 1
-                            </p>
-                            <Slider max={30} min={-30} value={lin1Height} onChange={(e)=>dispatch(setLine1Height(e))} />
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <p className='mt-1 text-start'>
-                                line 2
-                            </p>
-                            <Slider max={30} min={-30} value={lin2Height} onChange={(e)=>dispatch(setLine2Height(e))} />
-                        </Col> */}
                         <Col lg={12}  xs={12}>
                             <p className='mt-1 text-start'>
                                 height selected teeth
                             </p>
                             <Slider disabled={selectedTeeth===0} value={test_}  onChange={(e)=>dispatch(setTeethHeight(e))} max={0} min={-30}   />
                         </Col>
-                        <Col lg={12}  xs={12}> 
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
+                        
+                        {
+                            data.map((item,index)=>{
+                                return(
+                                <Col lg={12}  xs={12}>
 
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
-                        <Col lg={12}  xs={12}>
-                            <Dropdown menu={{
-                                items,
-                                onClick: handleMenuClick,
-                            }}>
-                                
-                                    <Space className='dropDown_diag'>
-                                        <span>
-                                            Missing
-                                        </span>
-
-                                        
-                                        <DownOutlined />
-                                    </Space>
-                            </Dropdown>
-                        </Col>
+                                    <Select
+                                        disabled={selectedTeeth===0}
+                                        className='dropDown_diag'
+                                        mode="multiple"
+                                        value={( teethData[selectedTeeth].diagnostics[index]===undefined ? [] : teethData[selectedTeeth].diagnostics[index].ids_arr )}
+                                        placeholder={item.name}
+                                        onChange={(e)=>handleChange(e,item.id)}
+                                        options={convertArray(item.subcats)}
+                                        />
+                                </Col> 
+                                )
+                            })
+                        }
                     </Row>
                 </Col>
+                <button onClick={()=>console.log(teethData)} >
+                    test
+                </button>
+                
             </Row>
             <Row className='justify-center pt-3'>
+                
                 <Col lg={6} sm={12} >
                     <div className='teeth-list'>
                         {
-                            test.map((item,index)=>{
+                            teethData.map((item,index)=>{
+                                if(index>0 && index<=8 )
                                 return(
                                     <div className='row-list'>
-                                        
                                         <span>
-                                            1{item}
+                                            {item.number}
                                         </span>
-                                        <span>
+                                        <div>
+                                            {item.diagnostics.map((subItem)=>(
+                                                <>
+                                                    {subItem.ids_arr.map((value)=>(
+                                                        <span className='item_in_bord'>
+                                                        {value.slice(2) + "  " }
+                                                        
+                                                        </span>))}
+                                                </>
+
+                                            ))}
+                                        </div>
+                                        <span onClick={()=>{
+                                            dispatch(setSelectedTeeth(index))
+                                            setDiagnostics( [
+                                                { cat_id: 1, ids_arr: [] },
+                                                { cat_id: 2, ids_arr: [] },
+                                                { cat_id: 3, ids_arr: [] },
+                                                { cat_id: 4, ids_arr: [] },
+                                                { cat_id: 5, ids_arr: [] },
+                                                { cat_id: 6, ids_arr: [] },
+                                                { cat_id: 7, ids_arr: [] },
+                                                { cat_id: 8, ids_arr: [] }
+                                              ]);
+                                        }} 
+                                        className='clear-button'
+                                        >
                                             
-                                        </span>
-                                        <span className='clear-button'>
                                             <ClearOutlined />
                                         </span>
-
                                     </div>
                                 )
                             })
@@ -250,69 +265,138 @@ const Diagnostic=()=> {
                 </Col>
                 <Col lg={6} sm={12} >
                 <div className='teeth-list'>
-                        {
-                            test.map((item,index)=>{
+                {
+                            teethData.map((item,index)=>{
+                                if(index>8 && index<=16 )
                                 return(
                                     <div className='row-list'>
-                                        
                                         <span>
-                                           2{item}
+                                            {item.number}
                                         </span>
-                                        <span>
-                                            
-                                        </span>
-                                        <span className='clear-button'>
-                                        <ClearOutlined />
-                                        </span>
+                                        <div>
+                                            {item.diagnostics.map((subItem)=>(
+                                                <>
+                                                    {subItem.ids_arr.map((value)=>(
+                                                        <span className='item_in_bord'>
+                                                        {value.slice(2) + "  " }
+                                                        
+                                                        </span>))}
+                                                </>
 
-                                    </div>
-                                )
-                            })
-                        }
-                        
-                    </div>
-                </Col>
-                <Col lg={6} sm={12} >
-                <div className='teeth-list'>
-                        {
-                            test.map((item,index)=>{
-                                return(
-                                    <div className='row-list'>
-                                        
-                                        <span>
-                                            3{item}
-                                        </span>
-                                        <span>
+                                            ))}
+                                        </div>
+                                        <span onClick={()=>{
+                                            dispatch(setSelectedTeeth(index))
+                                            setDiagnostics( [
+                                                { cat_id: 1, ids_arr: [] },
+                                                { cat_id: 2, ids_arr: [] },
+                                                { cat_id: 3, ids_arr: [] },
+                                                { cat_id: 4, ids_arr: [] },
+                                                { cat_id: 5, ids_arr: [] },
+                                                { cat_id: 6, ids_arr: [] },
+                                                { cat_id: 7, ids_arr: [] },
+                                                { cat_id: 8, ids_arr: [] }
+                                              ]);
+                                        }} 
+                                        className='clear-button'
+                                        >
                                             
-                                        </span>
-                                        <span className='clear-button'>
-                                        <ClearOutlined />
-                                        </span>
-
-                                    </div>
-                                )
-                            })
-                        }
-                        
-                    </div>
-                </Col>
-                <Col lg={6} sm={12} >
-                <div className='teeth-list'>
-                        {
-                            test.map((item,index)=>{
-                                return(
-                                    <div className='row-list'>
-                                        
-                                        <span>
-                                            4{item}
-                                        </span>
-                                        <span>
-                                            
-                                        </span>
-                                        <span className='clear-button'>
                                             <ClearOutlined />
                                         </span>
+                                    </div>
+                                )
+                            })
+                        }
+                        
+                    </div>
+                </Col>
+                <Col lg={6} sm={12} >
+                <div className='teeth-list'>
+                    {
+                            teethData.map((item,index)=>{
+                                if(index>16 && index<=24 )
+                                return(
+                                    <div className='row-list'>
+                                        <span>
+                                            {item.number}
+                                        </span>
+                                        <div>
+                                            {item.diagnostics.map((subItem)=>(
+                                                <>
+                                                    {subItem.ids_arr.map((value)=>(
+                                                        <span className='item_in_bord'>
+                                                        {value.slice(2) + "  " }
+                                                        
+                                                        </span>))}
+                                                </>
 
+                                            ))}
+                                        </div>
+                                        <span onClick={()=>{
+                                            dispatch(setSelectedTeeth(index))
+                                            setDiagnostics( [
+                                                { cat_id: 1, ids_arr: [] },
+                                                { cat_id: 2, ids_arr: [] },
+                                                { cat_id: 3, ids_arr: [] },
+                                                { cat_id: 4, ids_arr: [] },
+                                                { cat_id: 5, ids_arr: [] },
+                                                { cat_id: 6, ids_arr: [] },
+                                                { cat_id: 7, ids_arr: [] },
+                                                { cat_id: 8, ids_arr: [] }
+                                              ]);
+                                        }} 
+                                        className='clear-button'
+                                        >
+                                            
+                                            <ClearOutlined />
+                                        </span>
+                                    </div>
+                                )
+                            })
+                        }
+                        
+                    </div>
+                </Col>
+                <Col lg={6} sm={12} >
+                    <div className='teeth-list'>
+                        {
+                            teethData.map((item,index)=>{
+                                if(index>24 && index<=32 )
+                                return(
+                                    <div className='row-list'>
+                                        <span>
+                                            {item.number}
+                                        </span>
+                                        <div>
+                                            {item.diagnostics.map((subItem)=>(
+                                                <>
+                                                    {subItem.ids_arr.map((value)=>(
+                                                        <span className='item_in_bord'>
+                                                        {value.slice(2) + "  " }
+                                                        
+                                                        </span>))}
+                                                </>
+
+                                            ))}
+                                        </div>
+                                        <span onClick={()=>{
+                                            dispatch(setSelectedTeeth(index))
+                                            setDiagnostics( [
+                                                { cat_id: 1, ids_arr: [] },
+                                                { cat_id: 2, ids_arr: [] },
+                                                { cat_id: 3, ids_arr: [] },
+                                                { cat_id: 4, ids_arr: [] },
+                                                { cat_id: 5, ids_arr: [] },
+                                                { cat_id: 6, ids_arr: [] },
+                                                { cat_id: 7, ids_arr: [] },
+                                                { cat_id: 8, ids_arr: [] }
+                                              ]);
+                                        }} 
+                                        className='clear-button'
+                                        >
+                                            
+                                            <ClearOutlined />
+                                        </span>
                                     </div>
                                 )
                             })

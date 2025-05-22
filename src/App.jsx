@@ -21,6 +21,9 @@ import ManagerHome from './manager/home';
 import Diagnosis from './manager/newDiagnostic';
 import Patients from './manager/patients/logic';
 import Doctors from './manager/doctors/logic';
+import Visites from './manager/visites/logic'
+import Support from './manager/suppurt';
+import PDFSetting from './manager/pdfSetting'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {  ConfigProvider , theme } from 'antd';
@@ -96,6 +99,9 @@ function App() {
                 <Route path="diagnostic" element={<Diagnosis />} />
                 <Route path="patients" element={<Patients />} />
                 <Route path="doctors" element={<Doctors />} />
+                <Route path="support" element={<Support />} />
+                <Route path="visites/:id" element={<Visites />} />
+                <Route path="pdfSetting" element={<PDFSetting />} />
 
               </Route>
 

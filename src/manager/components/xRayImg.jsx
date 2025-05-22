@@ -28,7 +28,7 @@ const XRayIMG=()=> {
                 <label  className="main-btn " for="file-upload" >
                     upload XRay image
                 </label>
-                <input onChange={UploadImg} id="file-upload" type="file" />
+                <input onChange={UploadImg} id="file-upload" type="file"  accept="image/*" />
             </>
         )
 
