@@ -24,7 +24,7 @@ const App = () => {
         { key: '4', icon: <UserSwitchOutlined />, label: t("Doctors"), url: '/manager/Doctors' },
         { key: '5', icon: <ReconciliationOutlined />, label: t("visites") , url: '/manager/visites/0' },
         { key: '6', icon: <FilePdfOutlined />, label: t("PDF_Setting"), url: '/manager/pdfSetting' },
-        { key: '6', icon: <PhoneOutlined />, label: t("suppurt"), url: '/manager/support' },
+        { key: '7', icon: <PhoneOutlined />, label: t("suppurt"), url: '/manager/support' },
         
     ];
 

@@ -1,11 +1,18 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import Test from '../../images/28.png';
+
 const Svg=(props)=> {
     const mode = useSelector((state) => state.mode);
     return(
         <div>
-            <svg version="1.0"
-            className={ ( props. reverse===true ? "teeth_svg_reverse" :"" ) + ' teeth_svg ' + (props.rotate===true ? ("teeth_svg_top") : ("")) }
+            <img 
+                src={Test}
+                className={  ( props. reverse===true ? "teeth_svg_reverse" :"" ) + ' teeth_img ' + (props.rotate!==true ? (" teeth_svg_top") : (""))+ ( props.error ? " btn_svg_dignose":" ") }
+                width="10.000000pt" height="10.000000pt"
+            />
+            {/* <svg version="1.0"
+            className={ ( props. reverse===true ? "teeth_svg_reverse" :"" ) + ' teeth_svg ' + (props.rotate===true ? ("teeth_svg_top ") : (" ")) + ( props.error ? " btn_svg_dignose":" ") }
                 width="50.000000pt" height="50.000000pt" viewBox="0 0 107.000000 196.000000"
                 preserveAspectRatio="xMidYMid meet">
                <g transform="translate(0.000000,196.000000) scale(0.100000,-0.100000)"
@@ -20,7 +27,7 @@ const Svg=(props)=> {
                 -17 52 2 75 43 146 200 169 373 13 94 7 267 -11 378 l-13 72 -317 0 c-271 0
                 -319 -2 -324 -15z"/>
                 </g>
-                </svg>
+                </svg> */}
         </div>
     )
 }

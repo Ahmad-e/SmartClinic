@@ -95,29 +95,6 @@ const Diagnostic=()=> {
       diagnosticsRef.current = current;
     };
 
-    // const [diagnostics, setDiagnostics] =  React.useState([]);
-
-    // const updateDiagnostics = (newItem) => {
-    //     setDiagnostics((prevDiagnostics) => {
-    //       const existingIndex = prevDiagnostics.findIndex(
-    //         (item) => item.cat_id === newItem.cat_id
-    //       );
-      
-    //       if (existingIndex !== -1) {
-    //         // إذا كان cat_id موجود: نحدث ids_arr
-    //         const updated = [...prevDiagnostics];
-    //         updated[existingIndex] = {
-    //           ...updated[existingIndex],
-    //           ids_arr: newItem.ids_arr,
-    //         };
-    //         return updated;
-    //       } else {
-    //         // إذا لم يكن موجود: نضيف العنصر
-    //         return [...prevDiagnostics, newItem];
-    //       }
-    //     });
-    //   };
-
 
     const handleChange = (value,cat_id) => {
         updateDiagnostics({ 
@@ -155,7 +132,7 @@ const Diagnostic=()=> {
 
     function convertArray(inputArray) {
         return inputArray.map(item => ({
-            value: item.id + " " + item.name ,
+            value: item.name ,
             label: item.name
         }));
     }
@@ -231,7 +208,7 @@ const Diagnostic=()=> {
                                                 <>
                                                     {subItem.ids_arr.map((value)=>(
                                                         <span className='item_in_bord'>
-                                                        {value.slice(2) + "  " }
+                                                        {value/*.slice(2) + "  "*/ }
                                                         
                                                         </span>))}
                                                 </>
@@ -278,7 +255,7 @@ const Diagnostic=()=> {
                                                 <>
                                                     {subItem.ids_arr.map((value)=>(
                                                         <span className='item_in_bord'>
-                                                        {value.slice(2) + "  " }
+                                                        {value/*.slice(2) + "  "*/}
                                                         
                                                         </span>))}
                                                 </>
@@ -325,7 +302,7 @@ const Diagnostic=()=> {
                                                 <>
                                                     {subItem.ids_arr.map((value)=>(
                                                         <span className='item_in_bord'>
-                                                        {value.slice(2) + "  " }
+                                                        {value/*.slice(2) + "  "*/ }
                                                         
                                                         </span>))}
                                                 </>
@@ -372,7 +349,7 @@ const Diagnostic=()=> {
                                                 <>
                                                     {subItem.ids_arr.map((value)=>(
                                                         <span className='item_in_bord'>
-                                                        {value.slice(2) + "  " }
+                                                        {value /*.slice(2) + "  "*/ }
                                                         
                                                         </span>))}
                                                 </>

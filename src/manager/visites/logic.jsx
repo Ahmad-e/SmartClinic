@@ -14,26 +14,52 @@ const OverView=()=> {
     const { id } = useParams();
 
     const [data, setData] = React.useState([]);
-    React.useEffect(() => {
-    //   setLoading(true);
-    //   axios.get( url + "api/patients/",
-    //       {
-    //       headers:{
-    //           'Content-Type': 'application/json',
-    //           'Authorization' : 'Bearer ' +token ,
-    //           'Accept':"application/json"
-    //       }
-    //       })
-    //       .then((response) => {
-    //           console.log(response.data)
-    //           setData(response.data.data)
-    //           setLoading(false)
+    const [visits, setstVisi] = React.useState([]);
 
-    //       })
-    //       .catch((error) =>{ 
-    //           console.log(error);
-    //           setLoading(false) });
-  }, [refresh]);
+    React.useEffect(() => {
+
+        if(id==="0"){
+            setLoading(true);
+            axios.get( url + "api/visites/list",
+                {
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
+                })
+                .then((response) => {
+                    console.log(response.data)
+                    // setData(response.data.data)
+                    setstVisi(response.data)
+                    setLoading(false)
+    
+                })
+                .catch((error) =>{ 
+                    console.log(error);
+                    setLoading(false) });
+        }
+        else{
+            setLoading(true);
+            axios.get( url + "api/patient/"+id+"/visits/",
+                {
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer ' +token ,
+                    'Accept':"application/json"
+                }
+                })
+                .then((response) => {
+                    console.log(response.data)
+                    setstVisi(response.data)
+                    setLoading(false)
+                })
+                .catch((error) =>{ 
+                    console.log(error);
+                    setLoading(false) });
+        }
+        console.log("load data")
+    }, [refresh]);
 
 
 
@@ -45,60 +71,19 @@ const OverView=()=> {
         try {
           
           const formData = new FormData();
-          formData.append('firstname', data.firstname);
-          formData.append('lastname', data.lastname);
-          formData.append('gender', data.gander);
-          formData.append('phonenumber', data.phonenumber);
-          formData.append('address', data.address);
-          formData.append('birthdate', data.birthdate);
-          formData.append('email', data.email);
+          formData.append('patient', id);
+          formData.append('notes', data);
           
-          const response = axios.post( url + 'api/patients/add/', formData, {
+          const response = axios.post( url + 'api/visites/', formData, {
               headers: {
                   'Content-Type': 'multipart/form-data',
                   'Authorization': 'Bearer ' + token,
                   'Accept': "application/json"
               }
             }).then((response) => {
-                
               console.log(response.data)
               setRefresh(true)
-          }).catch((error) => {
-              console.log(error)
               setLoading(false)
-        });
-      } catch (error) {
-          console.log(error);
-          setLoading(false);
-      }
-    }
-
-    const Change_data=(data)=>{
-        console.log("start sending data");
-        console.log(data);
-        setLoading(true)
-        
-        try {
-          
-          const formData = new FormData();
-          formData.append('firstname', data.firstname);
-          formData.append('lastname', data.lastname);
-          formData.append('gender', data.gander);
-          formData.append('phonenumber', data.phonenumber);
-          formData.append('address', data.address);
-          formData.append('birthdate', data.birthdate);
-          formData.append('email', data.email);
-          
-          const response = axios.put( url + 'api/patients/update/'+data.id+"/", formData, {
-              headers: {
-                  'Content-Type': 'multipart/form-data',
-                  'Authorization': 'Bearer ' + token,
-                  'Accept': "application/json"
-              }
-            }).then((response) => {
-            //   setLoading(false)
-              console.log(response.data)
-              setRefresh(true)
           }).catch((error) => {
               console.log(error)
               setLoading(false)
@@ -115,7 +100,7 @@ const OverView=()=> {
             <Loading loading={loading} />
             {
                 loading===false ? (
-                    <Front onChange={(e)=>Change_data(e)} onAdd={(data)=>Add_data(data)} data={data} />
+                    <Front onAdd={(data)=>Add_data(data)}  visits={visits} data={data} />
                 ) : ("")
             }
             

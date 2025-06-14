@@ -37,12 +37,7 @@ const App = (props) => {
 
 
   const Send_data=()=>{
-    {
-      
-            
-    }
-        
-
+      props.onAdd(name)
 }
 
 
@@ -58,7 +53,6 @@ const App = (props) => {
                 <Col  sm={6} xs={12} className='auth-item'> 
                 
                     <Input value={name} onChange={changeName} status={errName ? ("error"):""} className={mode}  size="large" placeholder={ t("add_note") } variant="underlined" />
-                    <label hidden={!errName} className='auth-lable text-red-700 font-bold text-sm'> { t("name_error") } </label>
                 </Col>
                 <Col sm={6} xs={12} className='auth-item p-4'>
                     <AppButton onClick={()=>Send_data()} text={ t("save_data") }  ></AppButton>

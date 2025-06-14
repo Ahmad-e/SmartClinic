@@ -13,6 +13,7 @@ const OverView=()=> {
     const [loading, setLoading] = React.useState(false);
 
     const [data, setData] = React.useState([]);
+    
     React.useEffect(() => {
       setLoading(true);
       axios.get( url + "api/patients/",
@@ -62,6 +63,7 @@ const OverView=()=> {
                 
               console.log(response.data)
               setRefresh(true)
+              setLoading(false)
           }).catch((error) => {
               console.log(error)
               setLoading(false)
@@ -98,6 +100,7 @@ const OverView=()=> {
             //   setLoading(false)
               console.log(response.data)
               setRefresh(true)
+              setLoading(false)
           }).catch((error) => {
               console.log(error)
               setLoading(false)

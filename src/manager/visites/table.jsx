@@ -9,14 +9,6 @@ const App = (props) => {
 
   const columns = [
     {
-      title: 'id',
-      dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 6,
-      },
-    },
-    {
       title: t('First_name'),
       dataIndex: 'firstname',
       sorter: {
@@ -49,14 +41,6 @@ const App = (props) => {
       },
     },
     {
-      title: t('Birthdate'),
-      dataIndex: 'birthdate',
-      sorter: {
-        compare: (a, b) => new Date(a.birthdate) - new Date(b.birthdate),
-        multiple: 2,
-      },
-    },
-    {
       title: t('phone_no'),
       dataIndex: 'phonenumber',
       sorter: {
@@ -65,14 +49,21 @@ const App = (props) => {
       },
     },
     {
-      title: t('Action'),
-      key: 'action',
-      render: (text, record) => (
-        <Button onClick={() => { props.onOpenDialog(record) }}  color="primary" variant="text"  icon={<EditOutlined  style={{ fontSize: '20px'  }}  />} shape="circle" >
-          
-        </Button>
-      ),
+      title: t('visite_date'),
+      dataIndex: 'visite_date',
+      sorter: {
+        compare: (a, b) => a.visite_date - b.visite_date,
+        multiple: 1,
+      },
     },
+    {
+      title: t('notes'),
+      dataIndex: 'notes',
+      sorter: {
+        compare: (a, b) => a.notes - b.notes,
+        multiple: 1,
+      },
+    }
   ];
   
   const onChange = (pagination, filters, sorter, extra) => {
@@ -81,7 +72,7 @@ const App = (props) => {
 
 
   return(
-  <Table columns={columns} dataSource={props.data} onChange={onChange} />
+  <Table columns={columns} dataSource={props.visits} onChange={onChange} />
 )
 };
 
